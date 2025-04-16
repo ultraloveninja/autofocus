@@ -1,28 +1,54 @@
-<?php get_header() ?>
+<?php
+/**
+ * The template for displaying all pages
+ *
+ * @package AutoFocus
+ */
 
-	<div id="container">
-		<div id="content">
+get_header();
+?>
 
-<?php the_post() ?>
-			<div id="post-<?php the_ID(); ?>" class="<?php sandbox_post_class() ?>">
-				<h2 class="entry-title"><?php the_title(); ?></h2>
-				<div class="entry-content">
-<?php the_content() ?>
+<div id="container">
+    <div id="content">
+        <?php
+        while (have_posts()) : the_post();
+        ?>
+        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+            <h2 class="entry-title"><?php the_title(); ?></h2>
+            
+            <?php if (has_post_thumbnail()) : ?>
+            <div class="full-photo">
+                <?php the_post_thumbnail('large'); ?>
+            </div>
+            <?php endif; ?>
+            
+            <div class="entry-content">
+                <?php
+                the_content();
+                
+                wp_link_pages(array(
+                    'before' => '<div class="page-link">' . __('Pages:', 'autofocus'),
+                    'after'  => '</div>',
+                ));
+                ?>
+            </div><!-- .entry-content -->
 
-<?php wp_link_pages("\t\t\t\t\t<div class='page-link'>".__('Pages: ', 'sandbox'), "</div>\n", 'number'); ?>
+            <div class="entry-meta">
+                <?php edit_post_link(__('Edit', 'autofocus'), '<span class="edit-link">', '</span>'); ?>
+            </div><!-- .entry-meta -->
+        </article><!-- .post -->
 
-				</div>
+        <?php
+        // If comments are open or we have at least one comment, load up the comment template
+        if (get_post_custom_values('comments')) {
+            comments_template();
+        }
+        
+        endwhile; // End of the loop.
+        ?>
+    </div><!-- #content -->
+</div><!-- #container -->
 
-				<div class="entry-meta">
-<?php edit_post_link(__('Edit', 'sandbox'),'<span class="edit-link">','</span>') ?>
-				</div>
-
-			</div><!-- .post -->
-
-<?php if ( get_post_custom_values('comments') ) comments_template() // Add a key+value of "comments" to enable comments on this page ?>
-
-		</div><!-- #content -->
-	</div><!-- #container -->
-
-<?php get_sidebar() ?>
-<?php get_footer() ?>
+<?php
+get_sidebar();
+get_footer();

@@ -1,13 +1,29 @@
-	<div id="footer">
-		All content is &copy; <?php print(date(Y)); ?> by <a href="<?php echo get_option('home') ?>/" title="<?php bloginfo('name') ?>" rel="home"><?php bloginfo('name'); ?></a>. All rights reserved.
-		<p id="footer-credit">
-			<span id="generator-link"><a href="http://wordpress.org/" title="<?php _e('WordPress', 'sandbox'); ?>" rel="generator"><?php _e('WordPress', 'sandbox'); ?></a></span>
-			<span class="meta-sep">|</span>
-			<span id="theme-link"><a href="http://www.plaintxt.org/themes/sandbox/" title="<?php _e('Sandbox for WordPress', 'sandbox'); ?>" rel="designer"><?php _e('Sandbox', 'sandbox'); ?></a></span>
-			<span class="meta-sep">|</span>
-			<a href="http://www.allancole.com/wordpress/themes/autofocus" title="<?php _e('Autofocus', 'sandbox'); ?>"><?php _e('Autofocus', 'sandbox'); ?></a>
-		</p>
-	</div><!-- #footer -->
+<footer id="footer" role="contentinfo">
+        <div class="copyright">
+            <?php 
+            $copyright_text = sprintf(
+                esc_html__('All content is &copy; %s by %s. All rights reserved.', 'autofocus'),
+                date('Y'),
+                '<a href="' . esc_url(home_url('/')) . '" title="' . esc_attr(get_bloginfo('name')) . '" rel="home">' . get_bloginfo('name') . '</a>'
+            );
+            echo $copyright_text;
+            ?>
+        </div>
+        
+        <p id="footer-credit">
+            <span id="generator-link">
+                <a href="<?php echo esc_url(__('https://wordpress.org/', 'autofocus')); ?>" title="<?php esc_attr_e('WordPress', 'autofocus'); ?>" rel="generator">
+                    <?php esc_html_e('WordPress', 'autofocus'); ?>
+                </a>
+            </span>
+            <span class="meta-sep">|</span>
+            <span id="theme-link">
+                <a href="<?php echo esc_url(__('https://github.com/allancole/autofocus', 'autofocus')); ?>" title="<?php esc_attr_e('AutoFocus Theme', 'autofocus'); ?>" rel="designer">
+                    <?php esc_html_e('AutoFocus', 'autofocus'); ?>
+                </a>
+            </span>
+        </p>
+    </footer><!-- #footer -->
 </div><!-- #wrapper .hfeed -->
 
 <?php wp_footer(); ?>
